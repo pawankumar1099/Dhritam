@@ -1,0 +1,100 @@
+@import "tailwindcss";
+
+@theme {
+    --color-primary: #ff4d00;
+    --color-accent: #dbff00;
+    --color-gold: #ffcc00;
+    --color-card-bg: #1a1a1a;
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+    --font-outfit: "Outfit", sans-serif;
+}
+
+html {
+    scroll-behavior: smooth;
+    cursor: none;
+}
+
+button,
+a,
+.cursor-pointer {
+    cursor: none !important;
+}
+
+::selection {
+    background-color: var(--color-accent);
+    color: white;
+}
+
+/* Custom Skinny Yellow Scrollbar */
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-accent);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #fff;
+}
+
+@tailwind exports;
+@tailwind components;
+@tailwind utilities;
+
+/* * {
+    font-family: "Outfit", sans-serif;
+} */
+
+:root {
+    color-scheme: dark;
+    background-color: #000;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: #000;
+    font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-outfit);
+    margin: 0;
+}
+
+/* Restoring specific styles to ensure visual parity */
+.sticky-hero {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100%;
+    z-index: 1;
+}
+
+/* Fix for preflight resetting link and button styles */
+a,
+button {
+    all: unset;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.zalando-sans-expanded-font {
+    font-family: "Zalando Sans Expanded", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+}
