@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, ShieldCheck, Zap } from 'lucide-react';
+import { Cpu, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import agnaImg from '../assets/agna.png';
 import kavachxImg from '../assets/kavachx.png';
 import dhritamcoreImg from '../assets/dhritamcore.png';
@@ -104,9 +105,12 @@ const Hardware = () => {
                     >
                         Hardware <span className="text-accent">Ecosystem</span>
                     </motion.h2>
-                    <p className="text-lg md:text-xl text-white/50 max-w-[600px] leading-relaxed">
+                    <p className="text-lg md:text-xl text-white/50 max-w-[600px] leading-relaxed mb-8">
                         A modular, closed-loop system designed for seamless 24/7 neuro-cardiac protection.
                     </p>
+                    <Link to="/technology" className="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-full font-bold transition-all hover:bg-white hover:text-black">
+                        Explore Full Tech <ArrowUpRight size={18} />
+                    </Link>
                 </div>
 
                 <motion.div

@@ -8,11 +8,11 @@ const Footer = () => {
             <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between items-center gap-10 md:gap-8">
                 {/* Logo Section */}
                 <div className="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
-                    <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="flex gap-3 hover:opacity-80 transition-opacity">
-                        <div className="w-8 h-8">
+                    <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0 whitespace-nowrap">
+                        <div className="w-8 h-8 shrink-0">
                             <img src={logo} alt="Dhritam Logo" className="w-full h-full object-contain" />
                         </div>
-                        <span className="text-xl font-bold tracking-widest font-outfit uppercase">Dhritam</span>
+                        <span className="text-xl font-bold tracking-widest font-outfit uppercase whitespace-nowrap">Dhritam</span>
                     </a>
                     <p className="text-white/40 text-sm max-w-[300px] leading-relaxed">
                         Redefining human performance through advanced technology and neurological innovation.
