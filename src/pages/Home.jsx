@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowUpRight, Activity, Heart, Brain } from 'lucide-react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Pioneers from '../components/Pioneers';
 import Problem from '../components/Problem';
 import CompareSlider from '../components/CompareSlider';
@@ -18,12 +18,51 @@ import '../index.css';
 
 function Home() {
     const [onboardingOpen, setOnboardingOpen] = useState(false);
+    const [videoLoaded, setVideoLoaded] = useState(false);
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
     return (
         <div className="w-full bg-black">
+            <AnimatePresence>
+                {!videoLoaded && (
+                    <motion.div
+                        initial={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center"
+                    >
+                        <div className="w-[300px] mb-8">
+                            <div className="flex justify-between items-end mb-2">
+                                <span className="text-white/40 text-[0.6rem] uppercase tracking-[0.2em] font-outfit">Neural Systems</span>
+                                <span className="text-accent text-[0.8rem] font-bold font-outfit">INIT...</span>
+                            </div>
+                            <div className="h-[2px] w-full bg-white/10 overflow-hidden relative">
+                                <motion.div
+                                    className="absolute inset-0 bg-accent"
+                                    initial={{ x: "-100%" }}
+                                    animate={{ x: "0%" }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        ease: "easeInOut"
+                                    }}
+                                />
+                            </div>
+                        </div>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ delay: 0.5 }}
+                            className="text-white/20 text-[0.6rem] uppercase tracking-[0.4em] font-outfit animate-pulse"
+                        >
+                            Syncing Neuro-Cardiac Data
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
+
             <CustomCursor />
             <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
@@ -80,6 +119,7 @@ function Home() {
                         muted
                         loop
                         playsInline
+                        onLoadedData={() => setVideoLoaded(true)}
                         className="w-full h-full object-cover "
                     />
                     {/* Overlay for better text readability */}
