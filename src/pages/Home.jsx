@@ -12,7 +12,7 @@ import TextReveal from '../components/TextReveal';
 import CustomCursor from '../components/CustomCursor';
 import OnboardingForm from '../components/OnboardingForm';
 
-import heroVideo from '/Timeline.mov';
+// No import needed for public folder assets in Vite
 
 import '../index.css';
 
@@ -75,7 +75,7 @@ function Home() {
 
 
             {/* Sticky Hero */}
-            <div className="sticky top-0 w-full h-screen bg-black bg-[url('/bg.png')] bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]">
+            <div className="sticky top-0 w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none"></div>
 
                 {/* Left Content */}
@@ -120,7 +120,7 @@ function Home() {
                     style={{ y: y1, opacity }}
                 >
                     <video
-                        src={heroVideo}
+                        src="/Timeline.mov"
                         autoPlay
                         muted
                         loop
