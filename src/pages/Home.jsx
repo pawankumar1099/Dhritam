@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowUpRight, Activity, Heart, Brain } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Pioneers from '../components/Pioneers';
@@ -18,15 +18,22 @@ import '../index.css';
 
 function Home() {
     const [onboardingOpen, setOnboardingOpen] = useState(false);
-    const [videoLoaded, setVideoLoaded] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, []);
+
     return (
         <div className="w-full bg-black">
             <AnimatePresence>
-                {!videoLoaded && (
+                {isLoading && (
                     <motion.div
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -44,9 +51,8 @@ function Home() {
                                     initial={{ x: "-100%" }}
                                     animate={{ x: "0%" }}
                                     transition={{
-                                        duration: 2,
-                                        repeat: Infinity,
-                                        ease: "easeInOut"
+                                        duration: 5,
+                                        ease: "linear"
                                     }}
                                 />
                             </div>
@@ -119,7 +125,6 @@ function Home() {
                         muted
                         loop
                         playsInline
-                        onLoadedData={() => setVideoLoaded(true)}
                         className="w-full h-full object-cover "
                     />
                     {/* Overlay for better text readability */}
