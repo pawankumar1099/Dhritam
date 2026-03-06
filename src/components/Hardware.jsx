@@ -49,7 +49,7 @@ const HardwareCard = ({ item }) => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent z-10" />
                     <img
                         src={item.image}
-                        alt={item.name}
+                        alt={`${item.name} — ${item.type} product view`}
                         className="w-full h-full object-contain hover:scale-110 transition-transform duration-700"
                     />
                     <div className="absolute bottom-6 left-6 z-20">

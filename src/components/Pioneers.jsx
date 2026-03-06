@@ -89,26 +89,26 @@ const Pioneers = ({ onOpenOnboarding }) => {
     });
 
     return (
-        <div className="relative z-10 bg-black text-white w-full border-t border-white/5 font-outfit">
+        <section className="relative z-10 bg-black text-white w-full border-t border-white/5 font-outfit" aria-label="Pioneers">
             {/* Intro Section */}
-            <section className="py-16 md:py-[100px] px-6 md:px-[8%] grid grid-cols-1 lg:grid-cols-2 gap-10 md:gap-16 items-start">
+            <section className="py-10 sm:py-16 md:py-[100px] px-4 sm:px-6 md:px-[8%] grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-16 items-start">
                 <div className="lg:pr-10">
                     <Typewriter
                         text="Hridaya-Manas Sambandh: The Science of Resilience_"
-                        className="text-[2.2rem] md:text-[3.5rem] font-bold leading-[1.1] tracking-tight uppercase"
+                        className="text-[1.5rem] sm:text-[2.2rem] md:text-[3.5rem] font-bold leading-[1.1] tracking-tight uppercase"
                     />
                 </div>
                 <motion.div
-                    className="flex flex-col gap-5 md:gap-6"
+                    className="flex flex-col gap-4 sm:gap-5 md:gap-6"
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.2 }}
                 >
-                    <p className="text-lg md:text-xl leading-relaxed text-white/80 font-medium">
+                    <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/80 font-medium">
                         Our neural-sync technology bridges the gap between clinical heart diagnostics and mental state regulation. It monitors the "Neural Storm" to prevent somatic stress from triggering a physical cardiac event.
                     </p>
-                    <p className="text-lg md:text-xl leading-relaxed text-white/60">
+                    <p className="text-base sm:text-lg md:text-xl leading-relaxed text-white/60">
                         In our clinical trials, survivors are using the Dhritam system to regain autonomy over their recovery, manually stimulating the Vagus nerve through digital guidance to calm the heart.
                     </p>
                 </motion.div>
@@ -116,10 +116,10 @@ const Pioneers = ({ onOpenOnboarding }) => {
 
             {/* Sticky Scroll Section */}
             <div ref={containerRef} className="h-[400vh] relative">
-                <div className="sticky top-0 h-screen p-6 md:p-10 lg:p-[40px_8%] flex flex-col overflow-hidden">
+                <div className="sticky top-0 h-screen p-4 sm:p-6 md:p-10 lg:p-[40px_8%] flex flex-col overflow-hidden">
                     <ECGAnimation />
 
-                    <div className="relative flex-1 flex justify-center items-center z-10 mt-10">
+                    <div className="relative flex-1 flex justify-center items-center z-10 mt-6 sm:mt-10">
                         {pioneersData.map((card, index) => {
                             const start = index / pioneersData.length;
                             const end = (index + 1) / pioneersData.length;
@@ -131,7 +131,7 @@ const Pioneers = ({ onOpenOnboarding }) => {
                             return (
                                 <motion.div
                                     key={card.id}
-                                    className="absolute w-full h-full max-w-[950px] bg-[#0c0c0c] border border-white/10 rounded-[32px] md:rounded-[40px] overflow-hidden flex flex-col will-change-transform shadow-[0_20px_50px_rgba(0,0,0,0.5)]"
+                                    className="absolute w-full h-130 max-w-[95vw] sm:max-w-[650px] md:max-w-[850px] lg:max-w-[950px] bg-gradient-to-br from-[#18181b] via-[#0c0c0c] to-[#18181b] border border-white/10 rounded-2xl sm:rounded-3xl md:rounded-[40px] overflow-hidden flex flex-col will-change-transform shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] backdrop-blur-lg"
                                     style={{
                                         opacity: index === pioneersData.length - 1 ? useTransform(scrollYProgress, [start, 1], [0, 1]) : opacity,
                                         scale,
@@ -139,68 +139,62 @@ const Pioneers = ({ onOpenOnboarding }) => {
                                         zIndex: index + 1,
                                     }}
                                 >
-                                    <div className="w-full h-[30vh] md:h-[40vh] relative overflow-hidden group/img">
-                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0c0c0c] z-10" />
-                                        <img src={card.image} alt={card.title} className="w-full h-full object-cover opacity-60 group-hover/img:opacity-80 transition-all duration-700 scale-110 group-hover/img:scale-100 grayscale hover:grayscale-0" />
-                                        <div className="absolute top-6 left-6 md:top-8 md:left-8 z-20 flex items-center gap-3">
-                                            <span className="text-3xl md:text-4xl">{card.icon}</span>
-                                            <span className="text-sm md:text-base font-bold uppercase tracking-[0.2em] text-accent/80">{card.title}</span>
+                                    <div className="w-full h-[30vh] sm:h-[30vh] md:h-[40vh] relative overflow-hidden group/img">
+                                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#18181b] z-10" />
+                                        <img src={card.image} alt={`${card.title} — ${card.quote}`} className="w-full h-full object-cover opacity-60 group-hover/img:opacity-80 transition-all duration-700 scale-110 group-hover/img:scale-100 grayscale hover:grayscale-0" />
+                                        <div className="absolute top-4 left-4 sm:top-6 sm:left-6 md:top-8 md:left-8 z-20 flex items-center gap-2 sm:gap-3">
+                                            <span className="text-2xl sm:text-3xl md:text-4xl">{card.icon}</span>
+                                            <span className="text-xs sm:text-sm md:text-base font-bold uppercase tracking-[0.2em] text-accent/80">{card.title}</span>
                                         </div>
                                     </div>
 
-                                    <div className="p-6 md:p-10 lg:p-[2rem_4rem] relative">
-                                        <div className="max-w-[800px]">
-                                            <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-4 md:mb-6 leading-tight text-white tracking-tight">
+                                    <div className="p-4 sm:p-6 md:p-10 lg:p-[2rem_4rem] relative flex flex-col justify-between flex-1">
+                                        <div className="max-w-full sm:max-w-[600px] md:max-w-[800px]">
+                                            <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4 md:mb-6 leading-tight text-white tracking-tight">
                                                 {card.quote}
                                             </h3>
-                                            <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8">
+                                            <p className="text-sm sm:text-lg md:text-xl text-white/50 leading-relaxed mb-4 sm:mb-8">
                                                 {card.description}
                                             </p>
 
                                             {card.type === 'action' ? (
                                                 <button
                                                     onClick={onOpenOnboarding}
-                                                    className="group relative px-10 py-5 bg-white text-black font-bold uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 overflow-hidden"
+                                                    className="group relative px-6 sm:px-10 py-3 sm:py-5 bg-white text-black font-bold uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 overflow-hidden"
                                                 >
                                                     <span className="relative z-10">Get Early Access</span>
                                                     <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                                 </button>
                                             ) : (
-
-                                                <div className="flex gap-4">
-                                                    <div className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[0.7rem] md:text-xs font-bold uppercase tracking-widest text-white/40">
+                                                <div className="flex gap-2 sm:gap-4 flex-wrap">
+                                                    <div className="px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[0.65rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-widest text-white/40">
                                                         Trusted Tech
                                                     </div>
-                                                    <div className="px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[0.7rem] md:text-xs font-bold uppercase tracking-widest text-white/40">
+                                                    <div className="px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[0.65rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-widest text-white/40">
                                                         Deep Knowledge
                                                     </div>
                                                 </div>
                                             )}
                                         </div>
 
-                                        <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 hidden md:flex gap-3">
-                                            <button className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
+                                        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-10 md:right-10 hidden md:flex gap-3">
+                                            <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
                                                 <ArrowLeft size={20} />
                                             </button>
-                                            <button className="w-12 h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
+                                            <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
                                                 <ArrowRight size={20} />
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div className="px-6 md:px-10 pb-6 md:pb-10">
-                                        <div className="flex gap-2 w-full max-w-[200px]">
+                                    <div className="px-4 sm:px-6 md:px-10 pb-4 sm:pb-6 md:pb-10">
+                                        <div className="flex gap-1 sm:gap-2 w-full max-w-[120px] sm:max-w-[200px]">
                                             {pioneersData.map((_, i) => (
                                                 <div
                                                     key={i}
                                                     className={`flex-1 h-[2px] bg-white/10 relative overflow-hidden rounded-full`}
                                                 >
-                                                    {index === i && (
-                                                        <motion.div
-                                                            className="absolute inset-0 bg-accent"
-                                                            layoutId="activeBar"
-                                                        />
-                                                    )}
+                                                    
                                                 </div>
                                             ))}
                                         </div>
@@ -211,7 +205,7 @@ const Pioneers = ({ onOpenOnboarding }) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 

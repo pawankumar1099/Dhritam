@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import ScrollSequence from '../components/ScrollSequence';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -16,10 +17,15 @@ const Technology = () => {
 
     return (
         <div className="bg-white min-h-screen text-black overflow-x-hidden">
+            <Helmet>
+                <title>Technology — The Dhritam Ecosystem | Agna BCI, Kavach X & The Hub</title>
+                <meta name="description" content="Discover the Dhritam ecosystem: Agna BCI headband with 8 dry EEG sensors, Kavach X smart-textile ECG garment, and The Hub edge-computing core. Clinical-grade, on-device AI." />
+            </Helmet>
             <CustomCursor />
             <Navbar light={true} onOpenOnboarding={() => setOnboardingOpen(true)} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
+            <main>
             {/* Tech Hero - Clean Minimalist */}
             <section className="h-screen flex flex-col items-center justify-center relative px-6 text-center bg-white">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.03)_0%,transparent_70%)]"></div>
@@ -119,6 +125,7 @@ const Technology = () => {
                     </div>
                 </div>
             </section>
+            </main>
 
             <Footer />
         </div>

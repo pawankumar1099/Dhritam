@@ -9,12 +9,13 @@ const Footer = () => {
                 {/* Logo Section */}
                 <div className="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
                     <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0 whitespace-nowrap">
-                        <div className="w-8 h-8 shrink-0">
+                        <div className="w-20 h-8 shrink-0">
                             <img src={logo} alt="Dhritam Logo" className="w-full h-full object-contain" />
+                            <span className="text-xl  font-bold tracking-widest font-outfit uppercase whitespace-nowrap">Dhritam</span>
                         </div>
-                        <span className="text-xl font-bold tracking-widest font-outfit uppercase whitespace-nowrap">Dhritam</span>
+                        
                     </a>
-                    <p className="text-white/40 text-sm max-w-[300px] leading-relaxed">
+                    <p className="text-white/40 text-sm max-w-[300px] leading-relaxed mt-10">
                         Redefining human performance through advanced technology and neurological innovation.
                     </p>
                 </div>
@@ -23,6 +24,7 @@ const Footer = () => {
                 <div className="flex flex-col items-center md:items-end gap-6">
                     <div className="flex gap-8">
                         <a href="#technology" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Technology</a>
+                        <a href="https://blog.dhritam.com" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Blog</a>
                         <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Updates</a>
                     </div>
                     <div className="flex gap-6">

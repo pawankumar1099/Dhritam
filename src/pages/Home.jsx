@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ArrowUpRight, Activity, Heart, Brain } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Pioneers from '../components/Pioneers';
@@ -32,6 +33,11 @@ function Home() {
 
     return (
         <div className="w-full bg-black">
+            <Helmet>
+                <html lang="en" />
+                <title>Dhritam — Neural-Cardiac Recovery Technology</title>
+                <meta name="description" content="Dhritam fuses real-time neural monitoring with cardiac protection to power the most critical recovery journeys. Explore the Agna BCI, Kavach X, and The Hub." />
+            </Helmet>
             <AnimatePresence>
                 {isLoading && (
                     <motion.div
@@ -73,9 +79,9 @@ function Home() {
             <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
-
+            <main>
             {/* Sticky Hero */}
-            <div className="sticky top-0 w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]">
+            <section className="sticky top-0 w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]" aria-label="Hero">
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none"></div>
 
                 {/* Left Content */}
@@ -125,6 +131,7 @@ function Home() {
                         muted
                         loop
                         playsInline
+                        aria-hidden="true"
                         className="w-full h-full object-cover "
                     />
                     {/* Overlay for better text readability */}
@@ -132,7 +139,7 @@ function Home() {
                 </motion.div>
 
                 {/* Right Content / Floating Cards */}
-                <div className="z-10 flex flex-col md:flex-col gap-6 md:gap-8 mt-12 md:mt-[10%] w-full md:w-auto items-center md:items-end">
+                <div className="z-10 flex  md:flex-col gap-6 md:gap-8 mt-6 md:mt-[10%] w-full md:w-auto items-center md:items-end">
                     <motion.div
                         className="bg-white/5 backdrop-blur-[15px] border border-white/10 rounded-[24px] p-5 md:p-6 w-full max-w-[280px] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:bg-white/10 hover:border-white/20 group"
                         initial={{ opacity: 0, x: 50 }}
@@ -144,7 +151,7 @@ function Home() {
                             <Brain className="text-accent group-hover:scale-110 transition-transform" size={20} md:size={24} />
                             <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Agna BCI</span>
                         </div>
-                        <p className="text-[0.85rem] md:text-[0.9rem] text-white/60 leading-[1.5]">
+                        <p className=" hidden md:flex md:text-[0.9rem] text-white/60 leading-[1.5]">
                             Neural monitoring for stress, autonomic state, and recovery focus.
                         </p>
                     </motion.div>
@@ -160,11 +167,11 @@ function Home() {
                             <Activity className="text-red-500 group-hover:scale-110 transition-transform" size={20} md:size={24} />
                             <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Kavach X</span>
                         </div>
-                        <div className="text-[2rem] md:text-[2.5rem] font-extrabold text-white my-1 md:my-2 leading-[1] font-outfit tracking-tighter">Neural-Sync</div>
-                        <div className="text-[0.7rem] md:text-[0.8rem] uppercase text-white/40 tracking-widest font-semibold mb-2">Predictive AI Monitoring</div>
+                        <div className="hidden md:flex md:text-[2.5rem] font-extrabold text-white my-1 md:my-2 leading-[1] font-outfit tracking-tighter">Neural-Sync</div>
+                        <div className="hidden md:flex md:text-[0.8rem] uppercase text-white/40 tracking-widest font-semibold mb-2">Predictive AI Monitoring</div>
 
                         <motion.div
-                            className="absolute right-6 bottom-6 bg-accent w-10 h-10 rounded-full flex items-center justify-center text-black cursor-pointer"
+                            className="absolute right-6 bottom-6 bg-accent w-7 h-7 rounded-full flex items-center justify-center text-black cursor-pointer"
                             whileHover={{ scale: 1.2, rotate: 15 }}
                             whileTap={{ scale: 0.9 }}
                         >
@@ -172,7 +179,7 @@ function Home() {
                         </motion.div>
                     </motion.div>
                 </div>
-            </div>
+            </section>
 
             <Problem />
             <div className="relative z-20"> {/* Wrapper to ensure solid black background over sticky hero */}
@@ -181,6 +188,7 @@ function Home() {
             </div>
             <CompareSlider />
             <Pioneers onOpenOnboarding={() => setOnboardingOpen(true)} />
+            </main>
             <Footer />
         </div>
     );

@@ -78,6 +78,7 @@ const ECGAnimation = () => {
     return (
         <canvas
             ref={canvasRef}
+            aria-hidden="true"
             className="absolute top-0 left-0 w-full h-full pointer-events-none opacity-30"
         />
     );
