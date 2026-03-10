@@ -133,9 +133,11 @@ function Home() {
                             loop
                             playsInline
                             preload="auto"
+                            fetchPriority="high"
                             poster="/poster.jpg"
+                            className="absolute inset-0 w-full h-full object-cover"
                         >
-                            <source src="/Timeline.mp4" type="video/mp4" />
+                            <source src="/Timeline.mp" type="video/mp4" />
                         </video>
                         {/* Overlay for better text readability */}
                         <div className="absolute inset-0 bg-black/30"></div>
