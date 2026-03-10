@@ -4,6 +4,7 @@ import { ArrowUpRight, Activity, Heart, Brain } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
 import Pioneers from '../components/Pioneers';
 import Problem from '../components/Problem';
+import BrainHeartIntro from '../components/BrainHeartIntro';
 import CompareSlider from '../components/CompareSlider';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -12,6 +13,7 @@ import Intervention from '../components/Intervention';
 import TextReveal from '../components/TextReveal';
 import CustomCursor from '../components/CustomCursor';
 import OnboardingForm from '../components/OnboardingForm';
+import Testimonials from '../components/Testimonials';
 
 // No import needed for public folder assets in Vite
 
@@ -91,7 +93,7 @@ function Home() {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
                 >
-                    <h1 className="text-[3rem] md:text-[4.5rem] font-extrabold leading-[1] uppercase text-white mb-6 md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font">
+                    <h1 className="md:pt-10 pt-5 text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white mb-6 md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font">
                         <TextReveal text="DHRITAM" className="text-accent block zalando-sans-expanded-font justify-center md:justify-start" delay={0.1} />
                         <TextReveal text="— OWN" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
                         <TextReveal text="THE BEAT" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.3} />
@@ -132,7 +134,9 @@ function Home() {
                         loop
                         playsInline
                         aria-hidden="true"
-                        className="w-full h-full object-cover "
+                        fetchPriority="high"
+                        preload="auto"
+                        className="w-full h-full object-cover"
                     />
                     {/* Overlay for better text readability */}
                     <div className="absolute inset-0 bg-black/30"></div>
@@ -181,12 +185,14 @@ function Home() {
                 </div>
             </section>
 
+            <BrainHeartIntro />
             <Problem />
             <div className="relative z-20"> {/* Wrapper to ensure solid black background over sticky hero */}
                 <Hardware />
                 <Intervention />
             </div>
             <CompareSlider />
+            <Testimonials onOpenOnboarding={() => setOnboardingOpen(true)} />
             <Pioneers onOpenOnboarding={() => setOnboardingOpen(true)} />
             </main>
             <Footer />

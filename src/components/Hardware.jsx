@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { Cpu, ShieldCheck, Zap, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Cpu, ShieldCheck, Zap, ArrowUpRight, RefreshCw } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import agnaImg from '../assets/agna.png';
 import kavachxImg from '../assets/kavachx.png';
@@ -21,7 +21,14 @@ const HardwareCard = ({ item }) => {
                 transition={{ duration: 0.6, ease: "easeInOut" }}
             >
                 {/* Front Side */}
-                <div className={`absolute inset-0 h-full w-full rounded-[32px] bg-white/5 border ${item.color} p-8 backdrop-blur-sm [backface-visibility:hidden] flex flex-col`}>
+                <div className={`absolute inset-0 h-full w-full rounded-[32px] bg-[#0e0e0e] border ${item.color} p-8 [backface-visibility:hidden] flex flex-col overflow-hidden`}>
+                    {/* Subtle animated border glow to signal interactivity */}
+                    <motion.div
+                        className="absolute inset-0 rounded-[32px] pointer-events-none"
+                        animate={{ opacity: isFlipped ? 0 : [0.3, 0.7, 0.3] }}
+                        transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
+                        style={{ boxShadow: `inset 0 0 0 1px ${item.glowColor}` }}
+                    />
                     <div className="mb-8 inline-block text-white">
                         {item.icon}
                     </div>
@@ -40,6 +47,27 @@ const HardwareCard = ({ item }) => {
                             </li>
                         ))}
                     </ul>
+
+                    {/* Flip hint */}
+                    <AnimatePresence>
+                        {!isFlipped && (
+                            <motion.div
+                                className="absolute top-5 right-5 flex items-center gap-2 bg-white/8 border border-white/15 rounded-full px-3 py-1.5"
+                                initial={{ opacity: 0, y: -6 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -6 }}
+                                transition={{ delay: 0.6 }}
+                            >
+                                <motion.div
+                                    animate={{ rotate: [0, 180, 360] }}
+                                    transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', repeatDelay: 1 }}
+                                >
+                                    <RefreshCw size={11} className="text-accent" />
+                                </motion.div>
+                                <span className="text-[0.6rem] uppercase tracking-[0.18em] text-white/50 font-semibold font-outfit">click to reveal</span>
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
                 </div>
 
                 {/* Back Side */}
@@ -71,6 +99,7 @@ const Hardware = () => {
             features: ["8 Medical-grade EEG channels", "Real-time stress indexing", "Ultra-low latency"],
             icon: <Cpu size={32} className="text-accent" />,
             color: "border-accent/30",
+            glowColor: "rgba(219,255,0,0.35)",
             image: agnaImg
         },
         {
@@ -80,6 +109,7 @@ const Hardware = () => {
             features: ["Dry-sensor ECG", "Respiration monitoring", "Posture analysis"],
             icon: <ShieldCheck size={32} className="text-blue-500" />,
             color: "border-blue-500/30",
+            glowColor: "rgba(59,130,246,0.35)",
             image: kavachxImg
         },
         {
@@ -89,6 +119,7 @@ const Hardware = () => {
             features: ["Bluetooth 5.3 + Wi-Fi", "Neural-processing unit", "48h Battery life"],
             icon: <Zap size={32} className="text-red-500" />,
             color: "border-red-500/30",
+            glowColor: "rgba(239,68,68,0.35)",
             image: dhritamcoreImg
         }
     ];
