@@ -107,7 +107,7 @@ const ScrollSequence = ({ frames, folder, title, description, reverse = false })
     return (
         <section
             ref={sectionRef}
-            className="relative w-full h-screen bg-white flex items-center justify-center p-4 md:p-8"
+            className="relative w-full h-[100svh] md:h-screen bg-white flex items-center justify-center p-3 md:p-8"
         >
             {!imagesLoaded ? (
                 <div className="flex flex-col items-center gap-4 rounded-lg">
@@ -120,23 +120,23 @@ const ScrollSequence = ({ frames, folder, title, description, reverse = false })
                     <span className="text-[10px] uppercase tracking-widest font-bold text-black/30">Loading Module: {loadProgress}%</span>
                 </div>
             ) : (
-                <div className="w-full max-w-[1800px] h-full mx-auto px-6 md:px-[5%] flex flex-col md:flex-row items-center justify-between gap-12">
+                <div className="w-full max-w-[1800px] h-full mx-auto px-2 sm:px-4 md:px-[5%] flex flex-col md:flex-row items-center justify-center md:justify-between gap-5 md:gap-12 py-4 md:py-0">
 
                     {/* Content Section */}
-                    <div className={`w-full md:w-[30%] z-10 text-black text-content-${folder} ${reverse ? 'md:order-2' : ''}`}>
-                        <h2 className="text-6xl md:text-[6.5rem] font-bold mb-8 uppercase tracking-tighter font-outfit leading-[0.85]">
+                    <div className={`w-full md:w-[30%] z-10 text-black text-content-${folder} text-center md:text-left ${reverse ? 'md:order-2' : ''}`}>
+                        <h2 className="text-[2.1rem] sm:text-[2.6rem] md:text-[6.5rem] font-bold mb-3 md:mb-8 uppercase tracking-tight md:tracking-tighter font-outfit leading-[0.9] md:leading-[0.85]">
                             {title}
                         </h2>
-                        <p className="text-xl md:text-2xl text-black/60 leading-relaxed max-w-lg font-medium">
+                        <p className="text-sm sm:text-base md:text-2xl text-black/60 leading-relaxed max-w-lg mx-auto md:mx-0 font-medium">
                             {description}
                         </p>
                     </div>
 
                     {/* Canvas Section (The "Frame") */}
-                    <div className={`w-full md:w-[65%] h-[75vh] md:h-[90vh] flex items-center justify-center bg-gray-100/50 rounded-[5rem] md:rounded-[6rem] p-0 shadow-2xl border border-black/10 overflow-hidden relative ${reverse ? 'md:order-1' : ''}`}>
+                    <div className={`w-full md:w-[65%] h-[48vh] sm:h-[52vh] md:h-[90vh] flex items-center justify-center bg-gray-100/50 rounded-[2rem] sm:rounded-[2.5rem] md:rounded-[6rem] p-2 md:p-3 shadow-2xl border border-black/10 overflow-hidden relative ${reverse ? 'md:order-1' : ''}`}>
                         <canvas
                             ref={canvasRef}
-                            className="w-full h-full object-contain mix-blend-multiply"
+                            className="w-full h-full object-contain mix-blend-multiply rounded-[1.4rem] sm:rounded-[1.8rem] md:rounded-[5rem]"
                         />
                     </div>
 

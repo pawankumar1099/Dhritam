@@ -11,17 +11,16 @@ import Footer from '../components/Footer';
 import Hardware from '../components/Hardware';
 import Intervention from '../components/Intervention';
 import TextReveal from '../components/TextReveal';
-import CustomCursor from '../components/CustomCursor';
 import OnboardingForm from '../components/OnboardingForm';
 import Testimonials from '../components/Testimonials';
-
-// No import needed for public folder assets in Vite
+import headbandStill from '../assets/headband/ezgif-frame-010.jpg';
 
 import '../index.css';
 
 function Home() {
     const [onboardingOpen, setOnboardingOpen] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+    const [showHeadband, setShowHeadband] = useState(false);
     const { scrollY } = useScroll();
     const y1 = useTransform(scrollY, [0, 500], [0, 200]);
     const opacity = useTransform(scrollY, [0, 300], [1, 0]);
@@ -37,15 +36,16 @@ function Home() {
         <div className="w-full bg-black">
             <Helmet>
                 <html lang="en" />
-                <title>Dhritam — Neural-Cardiac Recovery Technology</title>
+                <title>Dhritam - Neural-Cardiac Recovery Technology</title>
                 <meta name="description" content="Dhritam fuses real-time neural monitoring with cardiac protection to power the most critical recovery journeys. Explore the Agna BCI, Kavach X, and The Hub." />
             </Helmet>
+
             <AnimatePresence>
                 {isLoading && (
                     <motion.div
                         initial={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        transition={{ duration: 0.8, ease: "easeInOut" }}
+                        transition={{ duration: 0.8, ease: 'easeInOut' }}
                         className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center"
                     >
                         <div className="w-[300px] mb-8">
@@ -56,12 +56,9 @@ function Home() {
                             <div className="h-[2px] w-full bg-white/10 overflow-hidden relative">
                                 <motion.div
                                     className="absolute inset-0 bg-accent"
-                                    initial={{ x: "-100%" }}
-                                    animate={{ x: "0%" }}
-                                    transition={{
-                                        duration: 5,
-                                        ease: "linear"
-                                    }}
+                                    initial={{ x: '-100%' }}
+                                    animate={{ x: '0%' }}
+                                    transition={{ duration: 5, ease: 'linear' }}
                                 />
                             </div>
                         </div>
@@ -77,25 +74,22 @@ function Home() {
                 )}
             </AnimatePresence>
 
-            <CustomCursor />
             <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
             <main>
-                {/* Sticky Hero */}
                 <section className="sticky top-0 w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]" aria-label="Hero">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none"></div>
 
-                    {/* Left Content */}
                     <motion.div
                         className="z-10 w-full md:max-w-[550px] text-center md:text-left mt-12 md:mt-0"
                         initial={{ opacity: 0, x: -50 }}
                         animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                        transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        <h1 className="md:pt-10 pt-5 text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white mb-6 md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font">
+                        <h1 className="md:pt-10  text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white mb-6 md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font">
                             <TextReveal text="DHRITAM" className="text-accent block zalando-sans-expanded-font justify-center md:justify-start" delay={0.1} />
-                            <TextReveal text="— OWN" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
+                            <TextReveal text="- OWN" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
                             <TextReveal text="THE BEAT" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.3} />
                         </h1>
 
@@ -122,11 +116,7 @@ function Home() {
                         </motion.p>
                     </motion.div>
 
-                    {/* Full-Screen Background Video */}
-                    <motion.div
-                        className="absolute inset-0 w-full h-full pointer-events-none z-0"
-                        style={{ y: y1, opacity }}
-                    >
+                    <motion.div className="absolute inset-0 w-full h-full pointer-events-none z-0" style={{ y: y1, opacity }}>
                         <video
                             autoPlay
                             muted
@@ -139,26 +129,36 @@ function Home() {
                         >
                             <source src="/Timeline.mp4" type="video/mp4" />
                         </video>
-                        {/* Overlay for better text readability */}
                         <div className="absolute inset-0 bg-black/30"></div>
                     </motion.div>
 
-                    {/* Right Content / Floating Cards */}
-                    <div className="z-10 flex  md:flex-col gap-6 md:gap-8 mt-6 md:mt-[10%] w-full md:w-auto items-center md:items-end">
+                    <div className="z-10 flex md:flex-col gap-6 md:gap-8 mt-6 md:mt-[10%] w-full md:w-auto items-center md:items-end">
                         <motion.div
-                            className="bg-white/5 backdrop-blur-[15px] border border-white/10 rounded-[24px] p-5 md:p-6 w-full max-w-[280px] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:bg-white/10 hover:border-white/20 group"
+                            onClick={() => setShowHeadband((prev) => !prev)}
+                            className="bg-white/5 backdrop-blur-[15px] border border-white/10 rounded-[24px] p-5 md:p-6 w-full max-w-[280px] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:bg-white/10 hover:border-white/20 group cursor-pointer"
                             initial={{ opacity: 0, x: 50 }}
                             animate={{ opacity: 1, x: 0 }}
                             transition={{ duration: 0.8, delay: 0.4 }}
                             whileHover={{ y: -5 }}
+                            whileTap={{ scale: 0.98 }}
                         >
                             <div className="flex items-center gap-3 mb-3 md:mb-4">
                                 <Brain className="text-accent group-hover:scale-110 transition-transform" size={20} md:size={24} />
                                 <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Agna BCI</span>
                             </div>
-                            <p className=" hidden md:flex md:text-[0.9rem] text-white/60 leading-[1.5]">
+                            <p className="hidden md:flex md:text-[0.9rem] text-white/60 leading-[1.5]">
                                 Neural monitoring for stress, autonomic state, and recovery focus.
                             </p>
+                            {showHeadband && (
+                                <motion.img
+                                    src={headbandStill}
+                                    alt="Dhritam headband"
+                                    className="mt-4 w-full rounded-xl border border-white/10"
+                                    initial={{ opacity: 0, y: 8 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.25 }}
+                                />
+                            )}
                         </motion.div>
 
                         <motion.div
@@ -188,7 +188,7 @@ function Home() {
 
                 <BrainHeartIntro />
                 <Problem />
-                <div className="relative z-20"> {/* Wrapper to ensure solid black background over sticky hero */}
+                <div className="relative z-20">
                     <Hardware />
                     <Intervention />
                 </div>

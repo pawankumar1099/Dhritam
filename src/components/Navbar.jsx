@@ -89,7 +89,7 @@ const Navbar = ({ onOpenOnboarding, light = false }) => {
 
                     {/* Mobile Menu Dropdown */}
                     {menuOpen && (
-                        <div className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg flex flex-col items-center py-6 gap-6 md:hidden z-[101] shadow-lg">
+                        <div className="absolute top-full left-0 w-full bg-black/95 backdrop-blur-lg flex flex-col items-center py-6 gap-6 md:hidden z-[101] shadow-lg pointer-events-auto">
                             <Link to="/technology" className={`text-base font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit`} onClick={() => setMenuOpen(false)}>
                                 Technology
                             </Link>

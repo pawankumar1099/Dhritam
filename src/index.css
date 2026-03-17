@@ -9,15 +9,16 @@
     --font-outfit: "Outfit", sans-serif;
 }
 
+
 html {
     scroll-behavior: smooth;
-    cursor: none;
+    cursor: auto;
 }
 
 button,
 a,
 .cursor-pointer {
-    cursor: none !important;
+    cursor: pointer !important;
 }
 
 ::selection {
@@ -42,10 +43,6 @@ a,
 ::-webkit-scrollbar-thumb:hover {
     background: #fff;
 }
-
-@tailwind exports;
-@tailwind components;
-@tailwind utilities;
 
 /* * {
     font-family: "Outfit", sans-serif;
