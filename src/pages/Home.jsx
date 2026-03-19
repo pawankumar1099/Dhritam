@@ -104,7 +104,7 @@ function Home() {
                             </div>
                         </motion.div>
 
-                        <div className="hidden md:block w-[1px] h-[70px] bg-white/20 mb-8 ml-4"></div>
+                        <div className="hidden md:block w-[1px] h-[50px] bg-white/20 mb-8 ml-4"></div>
 
                         <motion.p
                             className="text-[0.95rem] md:text-[1.1rem] text-white/70 leading-[1.6] max-w-[450px] mx-auto md:mx-0"
@@ -112,7 +112,7 @@ function Home() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8 }}
                         >
-                            The world's first <span className="text-white font-semibold italic">Neuro-Cardiac Companion</span> designed to prevent physical heart failure by monitoring the brain's stress signals.
+                            The world's first <span className="text-white font-semibold italic"> gamified neuro-cardiac biofeedback system</span> designed for at-home cardiac recovery.
                         </motion.p>
                     </motion.div>
 
