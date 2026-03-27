@@ -136,15 +136,15 @@ const OnboardingForm = ({ isOpen, onClose }) => {
 
                         <motion.div
                             layout
-                            className="bg-white/5 border border-white/10 rounded-[40px] p-8 md:p-14 overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative"
+                            className="bg-white/5 border border-white/10 rounded-[30px] p-8 md:p-14 overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.8)] relative"
                         >
                             {/* Close Button Inside Card */}
-                            <button
+                            <span
                                 onClick={onClose}
-                                className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/10 text-white/40 hover:text-white hover:bg-white/20 transition-all z-[220]"
+                                className="absolute top-4 left-4  w-10 h-10 flex items-center justify-center rounded-full bg-white/10 border border-white/10 text-white/40 hover:text-white hover:bg-white/20 transition-all z-[220]"
                             >
                                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </button>
+                            </span>
                             <AnimatePresence mode="wait" custom={direction}>
                                 <motion.div
                                     key={step}
@@ -155,7 +155,7 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                     transition={{ duration: 0.5, ease: [0.23, 1, 0.32, 1] }}
                                     className="flex flex-col gap-8"
                                 >
-                                    <div className="flex flex-col gap-2">
+                                    <div className="flex flex-col gap-2 mt-10">
                                         <span className="text-[10px] uppercase tracking-[0.3em] text-accent font-bold font-outfit">
                                             {currentStepData.title}
                                         </span>
@@ -165,13 +165,13 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                     </div>
 
                                     {currentStepData.type === 'intro' && (
-                                        <button
+                                        <span
                                             onClick={nextStep}
                                             className="group w-full bg-white text-black font-bold py-6 rounded-2xl flex items-center justify-center gap-3 transition-all hover:bg-accent active:scale-[0.98]"
                                         >
-                                            Begin Onboarding
-                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                                        </button>
+                                           <span className='flex items-center '> Begin Onboarding
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="group-hover:translate-x-1 transition-transform"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
+                                        </span>
                                     )}
 
                                     {currentStepData.type === 'input' && (
@@ -186,20 +186,20 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                 className="w-full bg-transparent border-b-2 border-white/10 py-6 text-2xl md:text-3xl text-white focus:outline-none focus:border-accent transition-all placeholder:text-white/10"
                                             />
                                             <div className="flex justify-between items-center">
-                                                <button
+                                                <span
                                                     onClick={prevStep}
                                                     className="text-white/40 hover:text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 transition-colors"
                                                 >
                                                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                                                     Back
-                                                </button>
-                                                <button
+                                                </span>
+                                                <span
                                                     disabled={!formData[currentStepData.field]}
                                                     onClick={nextStep}
                                                     className="bg-white text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-accent disabled:bg-white/10 disabled:text-white/20 transition-all active:scale-[0.95]"
                                                 >
                                                     Next Step
-                                                </button>
+                                                </span>
                                             </div>
                                         </div>
                                     )}
@@ -215,7 +215,7 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                 </div>
                                             )}
                                             {currentStepData.options.map((opt) => (
-                                                <button
+                                                <span
                                                     key={opt.id}
                                                     disabled={isSubmitting}
                                                     onClick={() => handleInterest(opt.id)}
@@ -228,16 +228,16 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                     <p className={`text-sm ${formData.interest === opt.id ? 'text-black/60' : 'text-white/40'}`}>
                                                         {opt.description}
                                                     </p>
-                                                </button>
+                                                </span>
                                             ))}
-                                            <button
+                                            <span
                                                 disabled={isSubmitting}
                                                 onClick={prevStep}
                                                 className="mt-6 text-white/40 hover:text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 transition-colors justify-center disabled:opacity-30"
                                             >
                                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                                                 Change Input
-                                            </button>
+                                            </span>
                                         </div>
                                     )}
 
@@ -251,12 +251,12 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                     We will reach out to you at <span className="text-white font-bold">{formData.email}</span> shortly.
                                                 </p>
                                             </div>
-                                            <button
+                                            <span
                                                 onClick={onClose}
                                                 className="w-full bg-white text-black font-bold py-5 rounded-2xl hover:bg-accent transition-all uppercase tracking-widest text-sm"
                                             >
                                                 Close Sanctuary
-                                            </button>
+                                            </span>
                                         </div>
                                     )}
                                 </motion.div>

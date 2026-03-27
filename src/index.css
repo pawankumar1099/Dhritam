@@ -96,3 +96,7 @@ button {
     font-style: normal;
     letter-spacing: -0.01em;
 }
+
+.assessmentWindow::-webkit-scrollbar {
+  display: none;
+}

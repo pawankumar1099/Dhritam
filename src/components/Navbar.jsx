@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = ({ onOpenOnboarding, light = false }) => {
+const Navbar = ({ onOpenOnboarding, onOpenAssessment, light = false }) => {
     const [isVisible, setIsVisible] = useState(true);
     const [lastScrollY, setLastScrollY] = useState(0);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -76,13 +76,25 @@ const Navbar = ({ onOpenOnboarding, light = false }) => {
                             <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className={`text-[0.75rem] md:text-[0.9rem] font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit`}>
                                 Updates
                             </a>
+                            <span
+                                onClick={onOpenAssessment}
+                                className="relative inline-flex h-10 md:h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black shrink-0"
+                            >
+                                <span className="absolute inset-[-1000%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,#DBFF00_0%,#393BB2_50%,#DBFF00_100%)]" />
+                                <span className="inline-flex h-full w-full cursor-pointer items-center justify-center rounded-full bg-black px-4 md:px-6 py-1 text-[0.75rem] md:text-[0.9rem] font-black text-white hover:text-accent font-outfit uppercase tracking-wider backdrop-blur-3xl transition-colors relative z-10 whitespace-nowrap">
+                                    Test Your Brain
+                                </span>
+                            </span>
+
+                            
                             <div
                                 onClick={onOpenOnboarding || (() => navigate('/'))}
-                                className={`text-[0.75rem] md:text-[0.9rem] font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit cursor-pointer group/demo`}
+                                className="relative inline-flex h-10 md:h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black shrink-0 cursor-pointer group"
                             >
-                                <div className={`${btnBg} px-4 py-2 rounded-full font-bold transition-all group-hover/demo:bg-accent group-hover/demo:text-white`}>
+                                <span className="absolute inset-[-1000%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,#FFFFFF_0%,#393BB2_50%,#FFFFFF_100%)] opacity-20 group-hover:opacity-100 transition-opacity" />
+                                <span className="inline-flex h-full w-full items-center justify-center rounded-full bg-white px-4 md:px-6 py-1 text-[0.75rem] md:text-[0.9rem] font-black text-black backdrop-blur-3xl transition-all relative z-10 whitespace-nowrap">
                                     Free Demo
-                                </div>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -99,6 +111,12 @@ const Navbar = ({ onOpenOnboarding, light = false }) => {
                             <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className={`text-base font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit`} onClick={() => setMenuOpen(false)}>
                                 Updates
                             </a>
+                            <button
+                                onClick={() => { setMenuOpen(false); onOpenAssessment(); }}
+                                className={`text-base font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit cursor-pointer`}
+                            >
+                                Play Game
+                            </button>
                             <div
                                 onClick={() => { setMenuOpen(false); (onOpenOnboarding || (() => navigate('/')))(); }}
                                 className={`text-base font-medium ${bgColor} ${hoverColor} transition-colors uppercase tracking-wider font-outfit cursor-pointer group/demo`}

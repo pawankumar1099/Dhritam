@@ -17,8 +17,7 @@ import headbandStill from '../assets/headband/ezgif-frame-010.jpg';
 
 import '../index.css';
 
-function Home() {
-    const [onboardingOpen, setOnboardingOpen] = useState(false);
+function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
     const [isLoading, setIsLoading] = useState(true);
     const [showHeadband, setShowHeadband] = useState(false);
     const { scrollY } = useScroll();
@@ -28,7 +27,7 @@ function Home() {
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
-        }, 5000);
+        }, 3000);
         return () => clearTimeout(timer);
     }, []);
 
@@ -74,7 +73,7 @@ function Home() {
                 )}
             </AnimatePresence>
 
-            <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} />
+            <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} onOpenAssessment={onOpenAssessment} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
             <main>
@@ -87,27 +86,46 @@ function Home() {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        <h1 className="md:pt-10  text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white mb-6 md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font">
+                        <h1 className="md:pt-10  text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white  md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font ">
                             <TextReveal text="DHRITAM" className="text-accent block zalando-sans-expanded-font justify-center md:justify-start" delay={0.1} />
                             <TextReveal text="- OWN" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
                             <TextReveal text="THE BEAT" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.3} />
                         </h1>
 
-                        <motion.div
-                            onClick={() => setOnboardingOpen(true)}
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            className="inline-block"
-                        >
-                            <div className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold text-[1rem] md:text-[1.1rem] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] mb-6 md:mb-8 mt-4 cursor-pointer">
-                                Protect Your Heart <ArrowUpRight size={20} />
-                            </div>
-                        </motion.div>
+                        <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-0">
+                            <motion.div
+                                onClick={() => setOnboardingOpen(true)}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="inline-block"
+                            >
+                                <div className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold text-[1rem] md:text-[1.1rem] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] md:mb-8  cursor-pointer mt-10">
+                                    Protect Your Heart <ArrowUpRight size={20} />
+                                </div>
+                            </motion.div>
+
+                            <motion.div
+                                onClick={onOpenAssessment}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                                className="md:hidden w-full max-w-[240px]"
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ delay: 0.5 }}
+                            >
+                                <div className="relative overflow-hidden rounded-full p-[1px] cursor-pointer">
+                                    <span className="absolute  inset-[-1000%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,#DBFF00_0%,#393BB2_50%,#DBFF00_100%)]" />
+                                    <span className="inline-flex h-full w-full items-center justify-center rounded-full bg-black  py-4 text-[1rem] font-black text-white hover:text-accent font-outfit uppercase tracking-wider backdrop-blur-3xl transition-colors relative z-10 whitespace-nowrap">
+                                        Test Your Brain
+                                    </span>
+                                </div>
+                            </motion.div>
+                        </div>
 
                         <div className="hidden md:block w-[1px] h-[50px] bg-white/20 mb-8 ml-4"></div>
 
                         <motion.p
-                            className="text-[0.95rem] md:text-[1.1rem] text-white/70 leading-[1.6] max-w-[450px] mx-auto md:mx-0"
+                            className="text-[0.95rem] md:text-[1.1rem] text-white/70 leading-[1.6] max-w-[450px] mx-auto md:mx-0 mt-10 md:mt-0 font-medium tracking-wide"
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8 }}
@@ -132,7 +150,7 @@ function Home() {
                         <div className="absolute inset-0 bg-black/30"></div>
                     </motion.div>
 
-                    <div className="z-10 flex md:flex-col gap-6 md:gap-8 mt-6 md:mt-[10%] w-full md:w-auto items-center md:items-end">
+                    <div className="z-10 hidden md:flex md:flex-col gap-6 md:gap-8 mt-6 md:mt-[10%] w-full md:w-auto items-center md:items-end">
                         <motion.div
                             onClick={() => setShowHeadband((prev) => !prev)}
                             className="bg-white/5 backdrop-blur-[15px] border border-white/10 rounded-[24px] p-5 md:p-6 w-full max-w-[280px] shadow-[0_8px_32px_0_rgba(0,0,0,0.37)] transition-all duration-300 hover:bg-white/10 hover:border-white/20 group cursor-pointer"

@@ -8,9 +8,7 @@ import OnboardingForm from '../components/OnboardingForm';
 import { motion } from 'framer-motion';
 import { Cpu, ShieldCheck, Zap } from 'lucide-react';
 
-const Technology = () => {
-    const [onboardingOpen, setOnboardingOpen] = useState(false);
-
+const Technology = ({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
@@ -22,7 +20,7 @@ const Technology = () => {
                 <meta name="description" content="Discover the Dhritam ecosystem: Agna BCI headband with 8 dry EEG sensors, Kavach X smart-textile ECG garment, and The Hub edge-computing core. Clinical-grade, on-device AI." />
             </Helmet>
             <CustomCursor />
-            <Navbar light={true} onOpenOnboarding={() => setOnboardingOpen(true)} />
+            <Navbar light={true} onOpenOnboarding={() => setOnboardingOpen(true)} onOpenAssessment={onOpenAssessment} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
             <main>

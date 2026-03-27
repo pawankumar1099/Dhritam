@@ -2,7 +2,13 @@
 # https://dhritam.com
 
 # Allow all major search engine crawlers full access
+
 User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Googlebot-Image
 Allow: /
 Disallow: /api/
 Disallow: /admin/
