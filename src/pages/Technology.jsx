@@ -26,7 +26,8 @@ const Technology = () => {
         const paddedIndex = frameInProduct.toString().padStart(4, '0');
         
         const folders = ['DhritamCore', 'Agna', 'kavach'];
-        return `/src/assets/${folders[productIndex]}/frame_${paddedIndex}.jpeg`;
+        // Use new URL() for Vite asset handling
+        return new URL(`../assets/${folders[productIndex]}/frame_${paddedIndex}.jpeg`, import.meta.url).href;
     };
 
     const { scrollYProgress } = useScroll({
