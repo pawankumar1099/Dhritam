@@ -13,7 +13,8 @@ import Intervention from '../components/Intervention';
 import TextReveal from '../components/TextReveal';
 import OnboardingForm from '../components/OnboardingForm';
 import Testimonials from '../components/Testimonials';
-import headbandStill from '../assets/headband/ezgif-frame-010.jpg';
+import heartImage from '../assets/heart.jpg'
+
 
 import '../index.css';
 
@@ -169,7 +170,7 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                             </p>
                             {showHeadband && (
                                 <motion.img
-                                    src={headbandStill}
+                                    src={heartImage}
                                     alt="Dhritam headband"
                                     className="mt-4 w-full rounded-xl border border-white/10"
                                     initial={{ opacity: 0, y: 8 }}

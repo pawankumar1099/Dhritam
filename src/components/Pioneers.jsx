@@ -150,7 +150,7 @@ const Pioneers = ({ onOpenOnboarding }) => {
 
                                     <div className="p-4 sm:p-6 md:p-10 lg:p-[2rem_4rem] relative flex flex-col justify-between flex-1">
                                         <div className="max-w-full sm:max-w-[600px] md:max-w-[800px]">
-                                            <h3 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-2 sm:mb-4 md:mb-6 leading-tight text-white tracking-tight">
+                                            <h3 className="  text-lg sm:text-2xl md:text-3xl lg:text-4xl font-bold  sm:mb-4 md:mb-6 leading-tight text-white tracking-tight">
                                                 {card.quote}
                                             </h3>
                                             <p className="text-sm sm:text-lg md:text-xl text-white/50 leading-relaxed mb-4 sm:mb-8">
@@ -158,13 +158,13 @@ const Pioneers = ({ onOpenOnboarding }) => {
                                             </p>
 
                                             {card.type === 'action' ? (
-                                                <button
+                                                <span
                                                     onClick={onOpenOnboarding}
-                                                    className="group relative px-6 sm:px-10 py-3 sm:py-5 bg-white text-black font-bold uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95 overflow-hidden"
+                                                    className="px-4 sm:px-4 py-2 sm:py-3 bg-white text-black font-bold uppercase tracking-widest rounded-full transition-all hover:scale-105 active:scale-95  cursor-pointer "
                                                 >
-                                                    <span className="relative z-10">Get Early Access</span>
-                                                    <div className="absolute inset-0 bg-accent translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                                                </button>
+                                                    Get Early Access
+                                                   
+                                                </span>
                                             ) : (
                                                 <div className="flex gap-2 sm:gap-4 flex-wrap">
                                                     <div className="px-3 sm:px-4 py-2 rounded-full border border-white/10 bg-white/5 text-[0.65rem] sm:text-[0.7rem] md:text-xs font-bold uppercase tracking-widest text-white/40">
@@ -177,27 +177,11 @@ const Pioneers = ({ onOpenOnboarding }) => {
                                             )}
                                         </div>
 
-                                        <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-10 md:right-10 hidden md:flex gap-3">
-                                            <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
-                                                <ArrowLeft size={20} />
-                                            </button>
-                                            <button className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border border-white/10 bg-white/5 flex items-center justify-center cursor-pointer transition-all hover:bg-white hover:text-black">
-                                                <ArrowRight size={20} />
-                                            </button>
-                                        </div>
+                                        
                                     </div>
 
                                     <div className="px-4 sm:px-6 md:px-10 pb-4 sm:pb-6 md:pb-10">
-                                        <div className="flex gap-1 sm:gap-2 w-full max-w-[120px] sm:max-w-[200px]">
-                                            {pioneersData.map((_, i) => (
-                                                <div
-                                                    key={i}
-                                                    className={`flex-1 h-[2px] bg-white/10 relative overflow-hidden rounded-full`}
-                                                >
-                                                    
-                                                </div>
-                                            ))}
-                                        </div>
+                                        
                                     </div>
                                 </motion.div>
                             );

@@ -1,129 +1,274 @@
-import React, { useEffect, useState } from 'react';
+import { useRef, useEffect, useState, useMemo } from 'react';
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
 import { Helmet } from 'react-helmet-async';
-import ScrollSequence from '../components/ScrollSequence';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import CustomCursor from '../components/CustomCursor';
-import OnboardingForm from '../components/OnboardingForm';
-import { motion } from 'framer-motion';
-import { Cpu, ShieldCheck, Zap } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-const Technology = ({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) => {
+const Technology = () => {
+    const containerRef = useRef(null);
+    const canvasRef = useRef(null);
+    const [images, setImages] = useState([]);
+    const [currentFrame, setCurrentFrame] = useState(1);
+    const [activeSection, setActiveSection] = useState('hero');
+
+    // Configuration for the frames
+    const frameCount = 192;
+    
+    // Total frames: 192 * 3 = 576 frames in total if we want all frames from each product
+    // However, the user wants a single 400vh-600vh scroll sequence. 
+    // Let's create a combined sequence logic where we cycle through all 192 frames of each product.
+    
+    const getFramePath = (index) => {
+        // index will go from 0 to (frameCount * 3) - 1
+        const productIndex = Math.floor(index / frameCount);
+        const frameInProduct = (index % frameCount) + 1;
+        const paddedIndex = frameInProduct.toString().padStart(4, '0');
+        
+        const folders = ['DhritamCore', 'Agna', 'kavach'];
+        return `/src/assets/${folders[productIndex]}/frame_${paddedIndex}.jpeg`;
+    };
+
+    const { scrollYProgress } = useScroll({
+        target: containerRef,
+        offset: ["start start", "end end"]
+    });
+
+    // Smooth scroll progress for the animation
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 100,
+        damping: 30,
+        restDelta: 0.001
+    });
+
+    // Preload images - All 576 frames
     useEffect(() => {
-        window.scrollTo(0, 0);
+        const preloadImages = async () => {
+            const loadedImages = [];
+            const totalFrames = frameCount * 3;
+            for (let i = 0; i < totalFrames; i++) {
+                const img = new Image();
+                img.src = getFramePath(i);
+                loadedImages.push(img);
+            }
+            setImages(loadedImages);
+        };
+        preloadImages();
     }, []);
 
+    // Canvas drawing logic
+    useEffect(() => {
+        if (!canvasRef.current || images.length === 0) return;
+
+        const canvas = canvasRef.current;
+        const context = canvas.getContext('2d', { alpha: false }); // Optimization for black background
+        const totalFrames = frameCount * 3;
+
+        const resizeCanvas = () => {
+            const parent = canvas.parentElement;
+            const dpr = window.devicePixelRatio || 1;
+            
+            // Set display size (css pixels)
+            canvas.style.width = `${parent.clientWidth}px`;
+            canvas.style.height = `${parent.clientHeight}px`;
+            
+            // Set actual drawing surface size (physical pixels)
+            canvas.width = parent.clientWidth * dpr;
+            canvas.height = parent.clientHeight * dpr;
+            
+            // Scale context to match DPR
+            context.scale(dpr, dpr);
+            
+            // Set high quality rendering
+            context.imageSmoothingEnabled = true;
+            context.imageSmoothingQuality = 'high';
+        };
+
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+        
+        const updateCanvas = (progress) => {
+            const frameIndex = Math.min(
+                totalFrames - 1,
+                Math.floor(progress * totalFrames)
+            );
+            
+            const img = images[frameIndex];
+            if (img && img.complete) {
+                const parent = canvas.parentElement;
+                const canvasW = parent.clientWidth;
+                const canvasH = parent.clientHeight;
+
+                const imgRatio = img.width / img.height;
+                const canvasRatio = canvasW / canvasH;
+                let drawWidth, drawHeight, offsetX, offsetY;
+
+                if (canvasRatio > imgRatio) {
+                    drawWidth = canvasW;
+                    drawHeight = canvasW / imgRatio;
+                    offsetX = 0;
+                    offsetY = (canvasH - drawHeight) / 2;
+                } else {
+                    drawWidth = canvasH * imgRatio;
+                    drawHeight = canvasH;
+                    offsetX = (canvasW - drawWidth) / 2;
+                    offsetY = 0;
+                }
+
+                // Note: We use canvasW/H here because the context is already scaled by DPR
+                context.clearRect(0, 0, canvasW, canvasH);
+                context.drawImage(img, offsetX, offsetY, drawWidth, drawHeight);
+            }
+        };
+
+        const unsubscribe = smoothProgress.on("change", (latest) => {
+            updateCanvas(latest);
+            
+            // Section tracking based on 0-1 progress
+            if (latest < 0.15) setActiveSection('hero');
+            else if (latest < 0.35) setActiveSection('breakdown');
+            else if (latest < 0.55) setActiveSection('agna');
+            else if (latest < 0.75) setActiveSection('core');
+            else if (latest < 0.90) setActiveSection('kavach');
+            else setActiveSection('reassembly');
+        });
+
+        updateCanvas(0);
+
+        return () => {
+            unsubscribe();
+            window.removeEventListener('resize', resizeCanvas);
+        };
+    }, [images, smoothProgress]);
+
+    // Text animations based on scroll progress
+    const heroOpacity = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0]);
+    const breakdownOpacity = useTransform(scrollYProgress, [0.15, 0.2, 0.3, 0.35], [0, 1, 1, 0]);
+    const agnaOpacity = useTransform(scrollYProgress, [0.35, 0.4, 0.5, 0.55], [0, 1, 1, 0]);
+    const coreOpacity = useTransform(scrollYProgress, [0.55, 0.6, 0.7, 0.75], [0, 1, 1, 0]);
+    const kavachOpacity = useTransform(scrollYProgress, [0.75, 0.8, 0.85, 0.9], [0, 1, 1, 0]);
+    const finalOpacity = useTransform(scrollYProgress, [0.9, 0.95], [0, 1]);
+
     return (
-        <div className="bg-white min-h-screen text-black overflow-x-hidden">
+        <div className="bg-[#050505] text-white font-outfit selection:bg-cyan-500/30">
             <Helmet>
-                <title>Technology — The Dhritam Ecosystem | Agna BCI, Kavach X & The Hub</title>
-                <meta name="description" content="Discover the Dhritam ecosystem: Agna BCI headband with 8 dry EEG sensors, Kavach X smart-textile ECG garment, and The Hub edge-computing core. Clinical-grade, on-device AI." />
+                <title>Technology | Dhritam - Intelligence. Engineered.</title>
             </Helmet>
-            <CustomCursor />
-            <Navbar light={true} onOpenOnboarding={() => setOnboardingOpen(true)} onOpenAssessment={onOpenAssessment} />
-            <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
+            
+            <Navbar />
 
-            <main>
-            {/* Tech Hero - Clean Minimalist */}
-            <section className="min-h-[100svh] md:h-screen flex flex-col items-center justify-center relative px-4 sm:px-6 pt-24 pb-10 md:pt-0 md:pb-0 text-center bg-white">
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.03)_0%,transparent_70%)]"></div>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 1 }}
-                    className="z-10"
-                >
-                    <span className="text-black/40 uppercase tracking-[0.35em] md:tracking-[0.5em] font-bold text-[10px] md:text-xs mb-6 md:mb-8 block">Engineering the Future</span>
-                    <h1 className="text-[2.4rem] sm:text-[3rem] md:text-[9rem] font-black uppercase tracking-tight md:tracking-tighter leading-[0.9] md:leading-[0.85] mb-6 md:mb-12 font-outfit">
-                        The <span className="italic">Dhritam</span><br />
-                        <span className="text-accent underline decoration-4 underline-offset-8">Ecosystem</span>
-                    </h1>
-                    <p className="text-base sm:text-lg md:text-2xl text-black/60 max-w-2xl mx-auto leading-relaxed font-medium px-2 sm:px-0">
-                        A seamless fusion of neural monitoring and cardiac protection. Built for the most critical recovery journeys.
-                    </p>
-                </motion.div>
-
-                {/* Scroll Indicator */}
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 1, duration: 1 }}
-                    className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
-                >
-                    <span className="text-black/20 text-[10px] uppercase tracking-[0.3em] font-bold">Scroll to Deconstruct</span>
-                    <div className="w-[1px] h-24 bg-gradient-to-b from-black/20 to-transparent"></div>
-                </motion.div>
-            </section>
-
-            {/* Agna BCI (headband) */}
-            <ScrollSequence
-                frames={31}
-                folder="headband"
-                title="Agna BCI"
-                description="8 medical-grade dry EEG sensors integrated into a breathable, adjustable headband. Agna tracks your brain's stress response in real-time, identifying physical heart markers before they manifest."
-            />
-
-            {/* Kavach X (tshirt) */}
-            <ScrollSequence
-                frames={31}
-                folder="tshirt"
-                title="Kavach X"
-                reverse={true}
-                description="Smart-textile technology that functions as a 24/7 ECG laboratory. The Kavach X compression garment monitors respiration, posture, and multi-vector heart signals with hospital-grade accuracy."
-            />
-
-            {/* The Core (core) */}
-            <ScrollSequence
-                frames={31}
-                folder="core"
-                title="The Hub"
-                description="The neural-processing unit that powers the ecosystem. The Core features a multi-core processor designed for on-device AI inference, ensuring your data stays private while providing split-second insights."
-            />
-
-            {/* Integrated Stats Section - Neutral/White */}
-            <section className="py-20 md:py-32 px-6 md:px-[8%] bg-black text-white relative">
-                <div className="max-w-6xl mx-auto">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 items-center">
-                        <div>
-                            <h2 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-6 md:mb-8 font-outfit uppercase leading-tight">
-                                Integrated <br />
-                                <span className="text-accent">Protection</span>
-                            </h2>
-                            <p className="text-base sm:text-lg md:text-xl text-white/60 leading-relaxed mb-8 md:mb-12">
-                                Every component is designed to work in perfect harmony, creating a resilient loop between mind and heart.
-                            </p>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                onClick={() => setOnboardingOpen(true)}
-                                className="bg-white text-black px-7 md:px-10 py-3 md:py-5 rounded-full font-bold text-sm md:text-lg uppercase tracking-wider hover:bg-accent hover:text-white transition-all shadow-2xl"
-                            >
-                                Start Your Recovery
-                            </motion.button>
-                        </div>
-
-                        <div className="grid grid-cols-1 gap-8 md:gap-12">
-                            {[
-                                { icon: <Cpu />, title: "Edge computing", desc: "No cloud latency. All AI processing happens on-device." },
-                                { icon: <ShieldCheck />, title: "Clinical grade", desc: "Calibrated to hospital standards for post-op safety." },
-                                { icon: <Zap />, title: "Sync-lock", desc: "Hyper-stable wireless bonding across the ecosystem." }
-                            ].map((item, i) => (
-                                <div key={i} className="flex gap-6 items-start group">
-                                    <div className="w-14 h-14 bg-white/5 rounded-2xl flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                                        {item.icon}
-                                    </div>
-                                    <div>
-                                        <h3 className="text-xl font-bold mb-2 uppercase tracking-tight">{item.title}</h3>
-                                        <p className="text-white/50 leading-relaxed">{item.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
+            <div ref={containerRef} className="relative h-[600vh] bg-black">
+                {/* Sticky Canvas Container */}
+                <div className="sticky top-0 h-screen w-full overflow-hidden">
+                    <canvas 
+                        ref={canvasRef}
+                        className="w-full h-full"
+                    />
+                    
+                    {/* Enhanced Radial Glow for Depth */}
+                    <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(219,255,0,0.12)_0%,transparent_70%)]" />
+                    
+                    {/* Cinematic Vignettes - Combats Camouflage on All Screen Sizes */}
+                    <div className="absolute inset-y-0 left-0 w-1/3 pointer-events-none bg-gradient-to-r from-black/90 via-black/40 to-transparent hidden md:block" />
+                    <div className="absolute inset-y-0 right-0 w-1/3 pointer-events-none bg-gradient-to-l from-black/90 via-black/40 to-transparent hidden md:block" />
+                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/60 via-transparent to-black/90" />
                 </div>
-            </section>
-            </main>
+
+                {/* Overlays / Content Layers */}
+                <div className="absolute inset-0 z-10 pointer-events-none font-outfit">
+                    
+                    {/* 1. HERO (0–15%) */}
+                    <section className="h-screen flex flex-col items-center justify-center text-center px-6">
+                        <motion.div style={{ opacity: heroOpacity }} className="max-w-4xl">
+                            <h1 className="text-5xl md:text-9xl font-black tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-b from-white via-white to-gray-500 uppercase italic">
+                                Dhritam Tech
+                            </h1>
+                            <p className="text-xl md:text-3xl text-[#DBFF00] font-bold tracking-[0.2em] mb-4 md:mb-6 uppercase drop-shadow-[0_0_20px_rgba(219,255,0,0.5)]">
+                                Intelligence. Engineered.
+                            </p>
+                            <p className="text-white/80 md:text-white/60 text-base md:text-xl max-w-2xl mx-auto leading-relaxed px-4 font-light italic">
+                                A unified system built to think, adapt, and protect in real time.
+                            </p>
+                        </motion.div>
+                    </section>
+
+                    {/* 2. SYSTEM BREAKDOWN (15–35%) */}
+                    <section className="h-screen flex items-center justify-center md:items-center md:justify-start px-6 md:px-[10%]">
+                        <motion.div style={{ opacity: breakdownOpacity }} className="max-w-xl text-center md:text-left p-8 md:p-12">
+                            <h2 className="text-3xl md:text-6xl font-black mb-8 tracking-tight">A system built <span className="text-white/40 italic">in layers.</span></h2>
+                            <div className="space-y-6 text-white/80 md:text-white/60 text-lg md:text-2xl font-light leading-snug">
+                                <p>Every function is modular. <br className="hidden md:block" />Every layer has purpose.</p>
+                                <p>Designed for clarity, performance, and control at scale.</p>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* 3. AGNA (35–55%) */}
+                    <section className="h-screen flex items-center justify-center md:justify-end px-6 md:px-[10%] text-center md:text-right">
+                        <motion.div style={{ opacity: agnaOpacity }} className="max-w-xl p-8 md:p-12">
+                            <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tight text-[#DBFF00]">Agna — <span className="text-white italic">The Eye.</span></h2>
+                            <div className="space-y-6 text-white/80 md:text-white/60 text-lg md:text-2xl font-light leading-relaxed">
+                                <p>Advanced computer vision and neural monitoring working in tandem.</p>
+                                <p>Agna serves as the cognitive layer, interpreting complex signals with surgical precision.</p>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* 4. CORE (55–75%) */}
+                    <section className="h-screen flex items-center justify-center md:justify-start px-6 md:px-[10%] text-center md:text-left">
+                        <motion.div style={{ opacity: coreOpacity }} className="max-w-xl p-8 md:p-12">
+                            <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tight text-white">Dhritam Core — <span className="text-white/40 italic">The Engine.</span></h2>
+                            <div className="space-y-6 text-white/80 md:text-white/60 text-lg md:text-2xl font-light leading-relaxed">
+                                <p>The high-performance processing hub where bio-data meets silicon intelligence.</p>
+                                <p>Engineered for zero-latency execution and massive analytical throughput.</p>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* 5. KAVACH (75–90%) */}
+                    <section className="h-screen flex items-center justify-center md:justify-end px-6 md:px-[10%] text-center md:text-right">
+                        <motion.div style={{ opacity: kavachOpacity }} className="max-w-xl p-8 md:p-12">
+                            <h2 className="text-4xl md:text-6xl font-black mb-8 tracking-tight text-white">Kavach — <span className="text-[#DBFF00] italic">The Shield.</span></h2>
+                            <div className="space-y-6 text-white/80 md:text-white/60 text-lg md:text-2xl font-light leading-relaxed">
+                                <p>Security is the foundation. Kavach embeds robust protection into every neural path.</p>
+                                <p>Continuous verification ensuring transparency and trust at every interaction point.</p>
+                            </div>
+                        </motion.div>
+                    </section>
+
+                    {/* 6. REASSEMBLY + CTA (90–100%) */}
+                    <section className="h-screen flex flex-col items-center justify-center text-center px-6">
+                        <motion.div style={{ opacity: finalOpacity }} className="max-w-4xl pointer-events-auto">
+                            <h2 className="text-5xl md:text-9xl font-black mb-6 tracking-tighter drop-shadow-2xl italic">One System.</h2>
+                            <p className="text-xl md:text-4xl text-[#DBFF00] mb-10 md:mb-16 font-bold tracking-[0.3em] uppercase drop-shadow-[0_0_20px_rgba(219,255,0,0.4)]">Total Control.</p>
+                            
+                            <div className="flex flex-col sm:flex-row gap-4 md:gap-8 justify-center">
+                                <Link to='/'>
+                                  <span className="cursor-pointer px-10 py-5 bg-white text-black font-black text-xl rounded-full hover:bg-[#DBFF00] hover:text-black transition-all duration-500 transform hover:scale-105 active:scale-95 shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                                    EXPLORE DHRITAM
+                                </span>
+                                </Link>
+                            </div>
+                            
+                            <p className="mt-12 text-white/40 uppercase tracking-[0.4em] text-[10px] md:text-sm font-bold">
+                                Engineering the Pulse of Tomorrow.
+                            </p>
+                        </motion.div>
+                    </section>
+                </div>
+            </div>
+
+            {/* Bottom Progress Indicator */}
+            <div className="fixed bottom-12 left-1/2 -translate-x-1/2 z-50 flex gap-3">
+                {['hero', 'breakdown', 'agna', 'core', 'kavach', 'reassembly'].map((section) => (
+                    <div 
+                        key={section}
+                        className={`h-1.5 rounded-full transition-all duration-700 ease-in-out ${
+                            activeSection === section ? 'bg-[#DBFF00] w-16 shadow-[0_0_10px_rgba(219,255,0,0.8)]' : 'bg-white/10 w-8'
+                        }`}
+                    />
+                ))}
+            </div>
 
             <Footer />
         </div>
@@ -131,3 +276,4 @@ const Technology = ({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) => 
 };
 
 export default Technology;
+

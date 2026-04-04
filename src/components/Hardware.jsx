@@ -139,8 +139,12 @@ const Hardware = () => {
                     <p className="text-lg md:text-xl text-white/50 max-w-[600px] leading-relaxed mb-8">
                         A modular, closed-loop system designed for seamless 24/7 neuro-cardiac protection.
                     </p>
-                    <Link to="/technology" className="inline-flex items-center gap-2 bg-accent text-white px-6 py-3 rounded-full font-bold transition-all hover:bg-white hover:text-black">
+                    <Link to="/technology" >
+                    <span className="inline-flex items-center gap-2 hover:bg-accent  px-6 py-3 rounded-full font-bold transition-all bg-white text-black">
+                    
                         Explore Full Tech <ArrowUpRight size={18} />
+                    
+                    </span>
                     </Link>
                 </div>
 

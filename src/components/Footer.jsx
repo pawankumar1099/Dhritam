@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 const Footer = () => {
@@ -9,7 +10,7 @@ const Footer = () => {
                 {/* Logo Section */}
                 <div className="flex flex-col items-center md:items-start gap-4 text-center md:text-left">
                     <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 hover:opacity-80 transition-opacity shrink-0 whitespace-nowrap">
-                        <div className="w-20 h-8 shrink-0">
+                        <div className="flex justify-center items-center w-20 h-8 shrink-0">
                             <img src={logo} alt="Dhritam Logo" className="w-full h-full object-contain" />
                             <span className="text-xl  font-bold tracking-widest font-outfit uppercase whitespace-nowrap">Dhritam</span>
                         </div>
@@ -23,7 +24,7 @@ const Footer = () => {
                 {/* Links / Socials */}
                 <div className="flex flex-col items-center md:items-end gap-6">
                     <div className="flex gap-8">
-                        <a href="#technology" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Technology</a>
+                        <Link to="/technology" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Technology</Link>
                         <a href="https://blog.dhritam.com" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Blog</a>
                         <a href="https://www.linkedin.com/company/dhritam/posts/?feedView=all" target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-white/60 hover:text-white transition-colors uppercase tracking-wider font-outfit">Updates</a>
                     </div>
