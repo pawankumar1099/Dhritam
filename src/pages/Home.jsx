@@ -36,8 +36,8 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
         <div className="w-full bg-black">
             <Helmet>
                 <html lang="en" />
-                <title>Dhritam - Neural-Cardiac Recovery Technology</title>
-                <meta name="description" content="Dhritam fuses real-time neural monitoring with cardiac protection to power the most critical recovery journeys. Explore the Agna BCI, Kavach X, and The Hub." />
+                <title>Dhritam - Understand Your Stress</title>
+                <meta name="description" content="Dhritam helps you understand your body and your stress. Wear a headband and shirt, get simple tips to feel better." />
             </Helmet>
 
             <AnimatePresence>
@@ -88,9 +88,9 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
                         <h1 className="md:pt-10  text-[4rem] md:text-[6rem] font-extrabold leading-[1] uppercase text-white  md:mb-8 tracking-[-2px] md:tracking-[-3px] zalando-sans-expanded-font ">
-                            <TextReveal text="DHRITAM" className="text-accent block zalando-sans-expanded-font justify-center md:justify-start" delay={0.1} />
-                            <TextReveal text="- OWN" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
-                            <TextReveal text="THE BEAT" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.3} />
+                            <TextReveal text="KNOW" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.1} />
+                            <TextReveal text="YOUR" className="text-accent block zalando-sans-expanded-font justify-center md:justify-start" delay={0.2} />
+                            <TextReveal text="STRESS" className="block zalando-sans-expanded-font justify-center md:justify-start" delay={0.3} />
                         </h1>
 
                         <div className="flex flex-col md:flex-row items-center md:items-start gap-4 md:gap-0">
@@ -101,7 +101,7 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                                 className="inline-block"
                             >
                                 <div className="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-full font-semibold text-[1rem] md:text-[1.1rem] transition-all duration-300 hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)] md:mb-8  cursor-pointer mt-10">
-                                    Protect Your Heart <ArrowUpRight size={20} />
+                                    Start Your Journey <ArrowUpRight size={20} />
                                 </div>
                             </motion.div>
 
@@ -117,7 +117,7 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                                 <div className="relative overflow-hidden rounded-full p-[1px] cursor-pointer">
                                     <span className="absolute  inset-[-1000%] animate-spin-slow bg-[conic-gradient(from_90deg_at_50%_50%,#DBFF00_0%,#393BB2_50%,#DBFF00_100%)]" />
                                     <span className="inline-flex h-full w-full items-center justify-center rounded-full bg-black  py-4 text-[1rem] font-black text-white hover:text-accent font-outfit uppercase tracking-wider backdrop-blur-3xl transition-colors relative z-10 whitespace-nowrap">
-                                        Test Your Brain
+                                        Test Your Stress
                                     </span>
                                 </div>
                             </motion.div>
@@ -131,7 +131,7 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.8 }}
                         >
-                            The world's first <span className="text-white font-semibold italic"> gamified neuro-cardiac biofeedback system</span> designed for at-home cardiac recovery.
+                            A headband and shirt that watch your heart and brain. <span className="text-white font-semibold italic">Feel better before things get bad.</span>
                         </motion.p>
                     </motion.div>
 
@@ -163,10 +163,10 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                         >
                             <div className="flex items-center gap-3 mb-3 md:mb-4">
                                 <Brain className="text-accent group-hover:scale-110 transition-transform" size={20} md:size={24} />
-                                <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Agna BCI</span>
+                                <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Agna EEG</span>
                             </div>
                             <p className="hidden md:flex md:text-[0.9rem] text-white/60 leading-[1.5]">
-                                Neural monitoring for stress, autonomic state, and recovery focus.
+                                Fun games and sounds that help calm your mind.
                             </p>
                             {showHeadband && (
                                 <motion.img
@@ -189,10 +189,10 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                         >
                             <div className="flex items-center gap-3 mb-3 md:mb-4">
                                 <Activity className="text-red-500 group-hover:scale-110 transition-transform" size={20} md:size={24} />
-                                <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Kavach X</span>
+                                <span className="text-[1rem] md:text-[1.1rem] font-semibold text-white uppercase tracking-wider">Kavach ECG</span>
                             </div>
-                            <div className="hidden md:flex md:text-[2.5rem] font-extrabold text-white my-1 md:my-2 leading-[1] font-outfit tracking-tighter">Neural-Sync</div>
-                            <div className="hidden md:flex md:text-[0.8rem] uppercase text-white/40 tracking-widest font-semibold mb-2">Predictive AI Monitoring</div>
+                            <div className="hidden md:flex md:text-[1.5rem] font-extrabold text-white my-1 md:my-2 leading-[1] font-outfit tracking-tighter">Always Watching</div>
+                            <div className="hidden md:flex md:text-[0.8rem] uppercase text-white/40 tracking-widest font-semibold mb-2">Your heart, 24/7</div>
 
                             <motion.div
                                 className="absolute right-6 bottom-6 bg-accent w-7 h-7 rounded-full flex items-center justify-center text-black cursor-pointer"

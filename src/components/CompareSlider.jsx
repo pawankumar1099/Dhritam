@@ -29,7 +29,7 @@ const CompareSlider = () => {
                     See The Difference
                 </motion.h2>
                 <p className="text-lg md:text-xl text-white/60 max-w-[700px] mx-auto leading-relaxed">
-                    Experience the transformation. Slide to see how we help you achieve your peak performance and well-being.
+                    Stressed vs. calm. See how fast you can go from one to the other with Dhritam helping you.
                 </p>
             </div>
 

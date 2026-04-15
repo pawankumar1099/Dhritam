@@ -93,30 +93,30 @@ const HardwareCard = ({ item }) => {
 const Hardware = () => {
     const components = [
         {
-            name: "Agna BCI",
-            type: "Headband",
-            description: "Tracks EEG (Brainwaves) to measure stress, focus, and autonomic nervous system (ANS) state.",
-            features: ["8 Medical-grade EEG channels", "Real-time stress indexing", "Ultra-low latency"],
+            name: "Brain Headband",
+            type: "The Fun One",
+            description: "Sits on your forehead and listens to your brain. Comes with earbuds for games and calming sounds that help you relax.",
+            features: ["Reads your brain activity", "Shows stress level right away", "Built-in earbuds", "Fun brain games"],
             icon: <Cpu size={32} className="text-accent" />,
             color: "border-accent/30",
             glowColor: "rgba(219,255,0,0.35)",
             image: agnaImg
         },
         {
-            name: "Kavach X",
-            type: "Smart Shirt",
-            description: "Smart-textile garment with medical-grade sensors for continuous ECG and respiration tracking.",
-            features: ["Dry-sensor ECG", "Respiration monitoring", "Posture analysis"],
+            name: "Heart Shirt",
+            type: "The Comfy One",
+            description: "Wear it like a normal shirt under your clothes. It watches your heart 24/7, even when you sleep. No fuss, no buttons.",
+            features: ["Watches your heart all day", "Super comfy to wear", "Works while you sleep", "Easy to use"],
             icon: <ShieldCheck size={32} className="text-blue-500" />,
             color: "border-blue-500/30",
             glowColor: "rgba(59,130,246,0.35)",
             image: kavachxImg
         },
         {
-            name: "The Core",
-            type: "Modular Hub",
-            description: "The 'brain' of the system. Snaps into either shirt or headband to sync and transmit data.",
-            features: ["Bluetooth 5.3 + Wi-Fi", "Neural-processing unit", "48h Battery life"],
+            name: "The App",
+            type: "Your Personal Helper",
+            description: "Makes all the numbers simple. No boring doctor talk. Just plain English about how you're feeling—and what to do about it.",
+            features: ["Explains everything simply", "Gives you ideas to feel better", "Keeps your privacy safe", "Learns what helps you most"],
             icon: <Zap size={32} className="text-red-500" />,
             color: "border-red-500/30",
             glowColor: "rgba(239,68,68,0.35)",
@@ -134,10 +134,10 @@ const Hardware = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                     >
-                        Hardware <span className="text-accent">Ecosystem</span>
+                        The <span className="text-accent">Toolkit</span>
                     </motion.h2>
                     <p className="text-lg md:text-xl text-white/50 max-w-[600px] leading-relaxed mb-8">
-                        A modular, closed-loop system designed for seamless 24/7 neuro-cardiac protection.
+                        A headband. A shirt. An app. That's everything you need to understand how you feel.
                     </p>
                     <Link to="/technology" >
                     <span className="inline-flex items-center gap-2 hover:bg-accent  px-6 py-3 rounded-full font-bold transition-all bg-white text-black">

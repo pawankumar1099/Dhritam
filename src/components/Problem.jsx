@@ -33,22 +33,22 @@ const Problem = () => {
         {
             id: 1,
             icon: <AlertCircle size={40} className="text-accent mb-[30px]" />,
-            title: "Cardiophobia",
-            description: "33% of cardiac survivors suffer from constant anxiety, sending 'panic signals' to the heart.",
+            title: "Can't See It Coming",
+            description: "You don't know when you're getting stressed. You feel it too late—when things are already bad.",
             style: { x: card1X, y: card1Y, rotate: card1Rotate, zIndex: 1 }
         },
         {
             id: 2,
             icon: <Zap size={40} className="text-red-500 mb-[30px]" />,
-            title: "Neural Storm",
-            description: "Stress-induced cortisol spikes trigger arrhythmias, causing fatal secondary attacks.",
+            title: "Confusing Words",
+            description: "Even doctors say weird things like HRV and RMSSD. Who knows what any of it means?",
             style: { scale: card2Scale, zIndex: 3 }
         },
         {
             id: 3,
             icon: <Activity size={40} className="text-blue-500 mb-[30px]" />,
-            title: "The Silent Gap",
-            description: "Traditional monitors ignore the heart's neural triggers. We bridge that gap.",
+            title: "Too Many Apps",
+            description: "Your phone has ten different health apps. One tracks your heart, another tracks sleep. Where's the real picture of you?",
             style: { x: card3X, y: card3Y, rotate: card3Rotate, zIndex: 2 }
         }
     ];
@@ -63,8 +63,8 @@ const Problem = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8 }}
                 >
-                    The Heart fails when<br className="hidden md:block" />
-                    <span className="text-accent italic">the Brain panics.</span>
+                    The Problem:<br className="hidden md:block" />
+                    <span className="text-accent italic">Not Knowing What's Happening</span>
                 </motion.h2>
 
                 <div className={`relative ${isMobile ? 'flex flex-col gap-8 h-auto mt-10' : 'h-[550px] flex justify-center items-center'} group/container`}>

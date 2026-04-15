@@ -5,8 +5,8 @@ import { Wind, Bell, CheckCircle } from 'lucide-react';
 const Intervention = () => {
     const steps = [
         {
-            title: "Neural Storm Detected",
-            description: "AI identifies stress-induced neural patterns before the heart rate spikes.",
+            title: "It Notices",
+            description: "Every 30 seconds, your devices check: Are you calm or stressed? You see a simple number that shows how you're feeling right now.",
             icon: <Bell className="text-red-500" />,
             animation: {
                 animate: {
@@ -21,8 +21,8 @@ const Intervention = () => {
             }
         },
         {
-            title: "Digital Pranayama",
-            description: "Immediate bio-feedback guidance through breathing to stimulate the Vagus Nerve.",
+            title: "It Suggests",
+            description: "Then it says: 'You look stressed! Try taking deep breaths' or 'Play a brain game' or 'Listen to this calming music.' Whatever helps you most.",
             icon: <Wind className="text-accent" />,
             animation: {
                 animate: {
@@ -36,8 +36,8 @@ const Intervention = () => {
             }
         },
         {
-            title: "Resilience Restored",
-            description: "Heart rhythm stabilized through neural regulation, preventing medical escalation.",
+            title: "It Learns",
+            description: "Over time, it figures out what makes YOU stressed and what helps YOU calm down fastest. It becomes your personal stress coach.",
             icon: <CheckCircle className="text-blue-500" />,
             animation: {
                 animate: {
@@ -56,9 +56,9 @@ const Intervention = () => {
         <section className="bg-black py-16 md:py-24 px-6 md:px-[8%] relative z-[30]">
             <div className="max-w-[1400px] mx-auto">
                 <div className="text-center mb-16">
-                    <h2 className="text-[2.5rem] md:text-[4rem] font-bold text-white mb-6 font-outfit uppercase tracking-tighter">Predictive <span className="text-accent italic">Intervention</span></h2>
+                    <h2 className="text-[2.5rem] md:text-[4rem] font-bold text-white mb-6 font-outfit uppercase tracking-tighter">It Works in <span className="text-accent italic">Three Steps</span></h2>
                     <p className="text-lg text-white/50 max-w-[600px] mx-auto leading-relaxed">
-                        Dhritam doesn't just watch. It acts when your brain signals danger.
+                        Notice your mood. Suggest what helps. Remember what works best for you.
                     </p>
                 </div>
 

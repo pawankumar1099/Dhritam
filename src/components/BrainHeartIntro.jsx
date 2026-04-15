@@ -110,7 +110,7 @@ const BrainHeartIntro = () => {
                         transition={{ duration: 0.3 }}
                     >
                         <TypewriterText
-                            text="Ever suffered from constant stress, anxiety, or unexplained heart discomfort?"
+                            text="What if you could feel better, before things get bad?"
                             trigger={phase1}
                             speed={28}
                         />
@@ -128,7 +128,7 @@ const BrainHeartIntro = () => {
                         style={{ y: text2Y, opacity: text2Opacity }}
                     >
                         <TypewriterText
-                            text="We are here to Help You! (‾◡◝)"
+                            text="Dhritam shows you how."
                             trigger={phase2}
                             speed={22}
                         />
