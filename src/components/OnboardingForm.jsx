@@ -1,13 +1,83 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Select from 'react-select';
+import { allCountries } from 'country-region-data';
 
 const OnboardingForm = ({ isOpen, onClose }) => {
     const [step, setStep] = useState(0);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
+        country: null,
+        city: null,
+        zipCode: '',
         interest: ''
     });
+
+    const countries = useMemo(() => {
+        return allCountries.map(c => ({
+            label: c[0],
+            value: c[1],
+            regions: c[2]
+        }));
+    }, []);
+
+    const cities = useMemo(() => {
+        if (!formData.country) return [];
+        return formData.country.regions.map(r => ({
+            label: r[0],
+            value: r[1]
+        }));
+    }, [formData.country]);
+
+    const selectStyles = {
+        control: (provided) => ({
+            ...provided,
+            backgroundColor: 'transparent',
+            border: 'none',
+            borderBottom: '2px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: 0,
+            padding: '10px 0',
+            fontSize: '1.5rem',
+            color: 'white',
+            boxShadow: 'none',
+            '&:hover': {
+                borderBottom: '2px solid #DBFF00'
+            }
+        }),
+        input: (provided) => ({
+            ...provided,
+            color: 'white',
+        }),
+        singleValue: (provided) => ({
+            ...provided,
+            color: 'white',
+        }),
+        placeholder: (provided) => ({
+            ...provided,
+            color: 'rgba(255, 255, 255, 0.1)',
+        }),
+        menu: (provided) => ({
+            ...provided,
+            backgroundColor: '#1a1a1a',
+            border: '1px solid rgba(255, 255, 255, 0.1)',
+            borderRadius: '15px',
+            overflow: 'hidden',
+            zIndex: 100
+        }),
+        option: (provided, state) => ({
+            ...provided,
+            backgroundColor: state.isSelected ? '#DBFF00' : state.isFocused ? 'rgba(255, 255, 255, 0.05)' : 'transparent',
+            color: state.isSelected ? 'black' : 'white',
+            cursor: 'pointer',
+            padding: '15px 20px',
+            '&:active': {
+                backgroundColor: '#DBFF00',
+                color: 'black'
+            }
+        })
+    };
+
     const [direction, setDirection] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -45,6 +115,9 @@ const OnboardingForm = ({ isOpen, onClose }) => {
             const params = new URLSearchParams();
             params.append('name', finalData.name);
             params.append('email', finalData.email);
+            params.append('country', finalData.country?.label || '');
+            params.append('city', finalData.city?.label || '');
+            params.append('zipCode', finalData.zipCode);
             params.append('interest', finalData.interest);
 
             await fetch(SCRIPT_URL, {
@@ -88,6 +161,20 @@ const OnboardingForm = ({ isOpen, onClose }) => {
             type: 'input',
             placeholder: 'email@example.com',
             field: 'email'
+        },
+        {
+            id: 'location',
+            title: 'Origin',
+            question: 'Where are you from?',
+            type: 'location'
+        },
+        {
+            id: 'zip',
+            title: 'Coordinates',
+            question: 'What is your local zip/pin code?',
+            type: 'input',
+            placeholder: 'Zip/Postal Code',
+            field: 'zipCode'
         },
         {
             id: 'interest',
@@ -195,7 +282,63 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                 </span>
                                                 <span
                                                     disabled={!formData[currentStepData.field]}
-                                                    onClick={nextStep}
+                                                    onClick={() => formData[currentStepData.field] && nextStep()}
+                                                    className="bg-white text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-accent disabled:bg-white/10 disabled:text-white/20 transition-all active:scale-[0.95]"
+                                                >
+                                                    Next Step
+                                                </span>
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {currentStepData.type === 'location' && (
+                                        <div className="flex flex-col gap-6">
+                                            <div className="flex flex-col gap-8">
+                                                <div className="flex flex-col gap-2">
+                                                    <span className="text-[10px] uppercase tracking-widest text-white/80 font-bold">Country</span>
+                                                    <Select
+                                                        options={countries}
+                                                        styles={selectStyles}
+                                                        value={formData.country}
+                                                        onChange={(val) => setFormData({ ...formData, country: val, city: null })}
+                                                        placeholder="Select Country"
+                                                        formatOptionLabel={({ label, value }) => (
+                                                            <div className="flex items-center gap-3">
+                                                                <img 
+                                                                    src={`https://flagcdn.com/w40/${value.toLowerCase()}.png`} 
+                                                                    alt={label}
+                                                                    className="w-6 h-auto rounded-sm"
+                                                                />
+                                                                <span>{label}</span>
+                                                            </div>
+                                                        )}
+                                                    />
+                                                </div>
+
+                                                <div className={`flex flex-col gap-2 transition-all duration-500 ${!formData.country ? 'opacity-20 pointer-events-none' : 'opacity-100'}`}>
+                                                    <span className="text-[10px] uppercase tracking-widest text-white/80 font-bold">City / Region</span>
+                                                    <Select
+                                                        options={cities}
+                                                        styles={selectStyles}
+                                                        value={formData.city}
+                                                        onChange={(val) => setFormData({ ...formData, city: val })}
+                                                        placeholder="Select City"
+                                                        isDisabled={!formData.country}
+                                                    />
+                                                </div>
+                                            </div>
+
+                                            <div className="flex justify-between items-center mt-4">
+                                                <span
+                                                    onClick={prevStep}
+                                                    className="text-white/40 hover:text-white text-sm font-bold uppercase tracking-widest flex items-center gap-2 transition-colors"
+                                                >
+                                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                                    Back
+                                                </span>
+                                                <span
+                                                    disabled={!formData.country || !formData.city}
+                                                    onClick={() => formData.country && formData.city && nextStep()}
                                                     className="bg-white text-black px-10 py-4 rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-accent disabled:bg-white/10 disabled:text-white/20 transition-all active:scale-[0.95]"
                                                 >
                                                     Next Step
