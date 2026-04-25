@@ -108,7 +108,7 @@ const OnboardingForm = ({ isOpen, onClose }) => {
         setFormData(finalData);
         setIsSubmitting(true);
 
-        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbydXlZqpna42FzLPFJa7MTSHGB4Vl3M0gIZkIhHM62GApiduNfT80tPczogMs6teSki/exec";
+        const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2UHCp7tbXsNmRDdZJvfGLwXABDf7s4IQPN_QTgD1Ov2nhahaT47qKQTMhC4CJ3tSE/exec";
 
         try {
             // Using URLSearchParams for better compatibility with Google Apps Script
@@ -316,7 +316,7 @@ const OnboardingForm = ({ isOpen, onClose }) => {
                                                 </div>
 
                                                 <div className={`flex flex-col gap-2 transition-all duration-500 ${!formData.country ? 'opacity-20 pointer-events-none' : 'opacity-100'}`}>
-                                                    <span className="text-[10px] uppercase tracking-widest text-white/80 font-bold">City / Region</span>
+                                                    <span className="text-[10px] uppercase tracking-widest text-white/80 font-bold">State / Region</span>
                                                     <Select
                                                         options={cities}
                                                         styles={selectStyles}
