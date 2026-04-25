@@ -184,7 +184,7 @@ const OnboardingForm = ({ isOpen, onClose }) => {
             options: [
                 { id: 'demo', label: 'Book a Free Demo', description: 'See the technology in action.' },
                 { id: 'waitlist', label: 'Join the Beta', description: 'Early access to the ecosystem.' },
-                { id: 'protect', label: 'Clinical Support', description: 'Post-surgical cardiac care.' }
+                { id: 'query', label: 'umm! Have a Query?', description: 'Talk to our expert.' }
             ]
         },
         {
