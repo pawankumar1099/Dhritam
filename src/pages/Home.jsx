@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { ArrowUpRight, Activity, Heart, Brain } from 'lucide-react';
 import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import Pioneers from '../components/Pioneers';
 import Problem from '../components/Problem';
 import BrainHeartIntro from '../components/BrainHeartIntro';
@@ -48,7 +49,20 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
                         transition={{ duration: 0.8, ease: 'easeInOut' }}
                         className="fixed inset-0 z-[1000] bg-black flex flex-col items-center justify-center"
                     >
-                        <div className="w-[300px] mb-8">
+                        <div className="w-[300px] mb-8 relative">
+                            <motion.div 
+                                className="absolute -top-32 w-28 h-28 pointer-events-none"
+                                initial={{ left: "0%" }}
+                                animate={{ left: "100%" }}
+                                transition={{ duration: 5, ease: 'linear' }}
+                                style={{ transform: "translateX(-50%)" }}
+                            >
+                                <DotLottieReact
+                                    src="/Meditating Brain.lottie"
+                                    loop
+                                    autoplay
+                                />
+                            </motion.div>
                             <div className="flex justify-between items-end mb-2">
                                 <span className="text-white/40 text-[0.6rem] uppercase tracking-[0.2em] font-outfit">Neural Systems</span>
                                 <span className="text-accent text-[0.8rem] font-bold font-outfit">INIT...</span>
@@ -77,8 +91,8 @@ function Home({ onOpenAssessment, onboardingOpen, setOnboardingOpen }) {
             <Navbar onOpenOnboarding={() => setOnboardingOpen(true)} onOpenAssessment={onOpenAssessment} />
             <OnboardingForm isOpen={onboardingOpen} onClose={() => setOnboardingOpen(false)} />
 
-            <main>
-                <section className="sticky top-0 w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]" aria-label="Hero">
+            <main className="relative">
+                <section className="relative w-full h-screen bg-black bg-cover bg-center flex flex-col md:flex-row items-center justify-between px-6 md:px-[8%] py-24 md:py-0 overflow-hidden z-[1]" aria-label="Hero">
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(0,0,0,0.4)_100%)] pointer-events-none"></div>
 
                     <motion.div

@@ -47,16 +47,16 @@ const BrainHeartIntro = () => {
 
     const { scrollYProgress } = useScroll({
         target: containerRef,
-        offset: ['start center', 'end end'],
+        offset: ['start center', 'end center'],
     });
 
     useEffect(() => {
         const unsubscribe = scrollYProgress.on('change', (v) => {
-            if (v >= 0.01 && !phase1Ref.current) {
+            if (v >= 0.1 && !phase1Ref.current) {
                 phase1Ref.current = true;
                 setPhase1(true);
             }
-            if (v >= 0.15 && !phase2Ref.current) {
+            if (v >= 0.3 && !phase2Ref.current) {
                 phase2Ref.current = true;
                 setPhase2(true);
             }
@@ -65,24 +65,24 @@ const BrainHeartIntro = () => {
     }, [scrollYProgress]);
 
     // Stack-in transform for second text block
-    const text2Y = useTransform(scrollYProgress, [0.1, 0.25], ['40px', '0px']);
-    const text2Opacity = useTransform(scrollYProgress, [0.1, 0.22], [0, 1]);
+    const text2Y = useTransform(scrollYProgress, [0.3, 0.5], ['40px', '0px']);
+    const text2Opacity = useTransform(scrollYProgress, [0.3, 0.45], [0, 1]);
 
     // Divider opacity synced with second block
-    const dividerOpacity = useTransform(scrollYProgress, [0.08, 0.2], [0, 1]);
+    const dividerOpacity = useTransform(scrollYProgress, [0.25, 0.4], [0, 1]);
 
     // Scroll indicator fades out near end
     const scrollIndicatorOpacity = useTransform(scrollYProgress, [0.4, 0.6], [1, 0]);
 
     // Subtle accent glow fades in
-    const glowOpacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
+    const glowOpacity = useTransform(scrollYProgress, [0, 0.1], [0, 1]);
 
     return (
         <section
             ref={containerRef}
-            className="relative h-[150vh] bg-black z-[12] shadow-[0_-30px_60px_rgba(0,0,0,0.9)]"
+            className="relative h-screen bg-black z-20"
         >
-            <div className="sticky top-0 h-screen flex flex-col items-center justify-center px-6 md:px-[8%] overflow-hidden">
+            <div className="relative h-full flex flex-col items-center justify-center px-6 md:px-[8%]">
 
                 {/* Subtle radial accent glow */}
                 <motion.div
